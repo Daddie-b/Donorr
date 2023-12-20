@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blood Bank - Available Blood</title>
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+        <script src="app.js"></script>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+    
+            h1 {
+                color: #2e384d;
+            }
+    
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #3498db;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+    
+            #availableBloodResults {
+                background-color: #fff;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                margin: 0 auto;
+                text-align: center;
+            }
+    
+            #availableBloodResults h2 {
+                color: #3498db;
+                margin-bottom: 10px;
+            }
+    
+            #availableBloodResults p {
+                margin: 10px 0;
+                color: #2e384d;
+            }
+        </style>
+    </head>
+<body>
+    <h1>Available Blood in the Blood Bank</h1>
+    <button onclick="getAllAvailableBlood()">Show Available Blood</button>
+    <div id="availableBloodResults"></div>
+    
+    <script>
+    async function getAllAvailableBlood() {
+        try {
+            // Call the smart contract function to get all available blood types and amounts
+            const availableBlood = await bloodBankContract.methods.getAvailableBlood().call();
+
+            // Display the result for all blood types
+            console.log("Available Blood for All Types:", availableBlood);
+
+            // You can customize the display logic based on your application, e.g., update HTML, display in UI, etc.
+            const resultDiv = document.getElementById('availableBloodResults');
+            resultDiv.innerHTML = '<h2>Available Blood for Each Blood Type</h2>';
+            
+            for (let i = 0; i < availableBlood.length; i++) {
+                resultDiv.innerHTML += `<p>${bloodTypeToString(i)}: ${availableBlood[i]}</p>`;
+            }
+
+            return availableBlood;
+        } catch (error) {
+            console.error("Error getting available blood:", error);
+        }
+    }
+
+    // Helper function to convert blood type numeric value to string
+    function bloodTypeToString(bloodType) {
+        const bloodTypeMapping = ['A', 'B', 'AB', 'O'];
+        return bloodTypeMapping[bloodType];
+    }
+    </script>
+</body>
+</html>

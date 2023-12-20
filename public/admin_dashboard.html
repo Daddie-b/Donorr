@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank Management System - Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        p {
+            color: #34495e;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        #adminMessages,
+        #registeredUsers,
+        #BloodRequestsListForAdmin,
+        div {
+            margin: 20px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(43, 42, 42, 0.1);
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        #donorsList img,
+        #patientsList img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        #registeredUsers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        #donorsList,
+        #patientsList {
+            flex: 1;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        h3 {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, Admin!</p>
+
+    <div id="registeredUsers">
+        <div id="donorsList">
+            <h2>Registered Donors</h2>
+            <img src="imgs/registered.jpg" alt="Donor Image">
+            <ul id="donorsDetailsList"></ul>
+        </div>
+        <div id="patientsList">
+            <h2>Registered Patients</h2>
+            <img src="imgs/registered.jpg" alt="Patient Image">
+            <ul id="patientsDetailsList"></ul>
+        </div>
+    </div>
+
+    <div id="BloodRequestsListForAdmin">
+        <h3>Blood Requests Made By Patients</h3>
+        <ul id="bloodRequestsList"></ul>
+    </div>
+    
+    <div>
+        <h2>Admin Actions</h2>
+        <button onclick="respondToRequest()">Respond to Requests</button>
+        <button onclick="grantUserPermission()">Grant User Permission</button>
+        <button onclick="redirectTo('index.html')">Home</button>
+    </div>
+
+    <script>
+        window.onload = () => {
+            displayBloodRequests('bloodRequestsList');
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
